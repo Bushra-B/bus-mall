@@ -114,7 +114,48 @@ function clicks(e) {
       reportList.textContent = `${products[j].imageName} had ${products[j].numberClicks} votes and was shown ${products[j].numberViews} times`;
       report.appendChild(reportList);
     }
+    renderChart();
   }
 }
-
+//create chart function :
+function renderChart(){
+  var productsNames = [];
+  var productsClicks = [];
+  var productsViews =[];
+  for(var i = 0 ; i < products.length ; i++){
+    var productName = products[i].imageName;
+    productsNames.push(productName);
+    var productLikes = products[i].numberClicks;
+    productsClicks.push(productLikes);
+    var productView = products[i].numberViews;
+    productsViews.push(productView);
+  }
+  // console.log(productLikes);
+  var ctx = document.getElementById('chart').getContext('2d');
+  var chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: productsNames,
+      datasets: [{
+        label: '# of Votes',
+        data: productsClicks,
+      }, {
+        label: '# of Views',
+        data: productsViews,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
 
