@@ -27,65 +27,94 @@ var productUrl = [
   'wine-glass.jpg'
 ];
 var products = []; //to store the objects (products) created by C.F
-var numberClicks = 0; //to sotre # of clicks to keep track of them
-var numberRounds = 0;
-var roundImagesShown = [];
 var leftSideImage = document.querySelector('#left-side-img');
 var centerImage = document.querySelector('#center-img');
 var rightSideImage = document.querySelector('#right-side-img');
 var imagesSection = document.querySelector('#all-products');
+var leftImageRandom, centerImageRandom, rightImageRandom;
+var totalClicks = 0;
+var rounds = document.getElementById('rounds');
+var numberRounds =0;
 //constructor function : to create products objects
-function Product(url){
+function Product(url) {
   this.imageUrl = `assets/${url}`;
-  this.imageName = url.split('.' , 1)[0];
+  this.imageName = url.split('.')[0];
   products.push(this);
+  this.numberClicks = 0; //to sotre # of clicks to keep track of them
+  this.numberViews = 0; //to sotre # of views to keep track of them
 }
 //functions :
 function randomImage() {
+  leftImageRandom = products[randomNumber(0, products.length - 1)];
+  centerImageRandom = products[randomNumber(0, products.length - 1)];
+  rightImageRandom = products[randomNumber(0, products.length - 1)];
   //to generate images randomly from products objects
-  var leftImageRandom = products[randomNumber(0, products.length-1)];
-  var centerImageRandom = products[randomNumber(0, products.length-1)];
-  var rightImageRandom = products[randomNumber(0, products.length-1)];
+  //   console.log(centerImageRandom);
   //to validate the uniqueness of the 3 random images
   while (leftImageRandom === centerImageRandom || leftImageRandom === rightImageRandom || centerImageRandom === rightImageRandom) {
-    leftImageRandom = products[randomNumber(0, products.length-1)];
-    centerImageRandom = products[randomNumber(0, products.length-1)];
-    rightImageRandom = products[randomNumber(0, products.length-1)];
+    leftImageRandom = products[randomNumber(0, products.length - 1)];
+    centerImageRandom = products[randomNumber(0, products.length - 1)];
+    rightImageRandom = products[randomNumber(0, products.length - 1)];
   }
   //to display the 3 random images to the user
   leftSideImage.setAttribute('src', leftImageRandom.imageUrl);
   leftSideImage.setAttribute('alt', leftImageRandom.imageName);
+  leftImageRandom.numberViews++;
   centerImage.setAttribute('src', centerImageRandom.imageUrl);
   centerImage.setAttribute('alt', centerImageRandom.imageName);
+  centerImageRandom.numberViews++;
   rightSideImage.setAttribute('src', rightImageRandom.imageUrl);
   rightSideImage.setAttribute('alt', rightImageRandom.imageName);
-  roundImagesShown.push(leftSideImage);
-  roundImagesShown.push(centerImage);
-  roundImagesShown.push(rightSideImage);
+  rightImageRandom.numberViews++;
 }
+
 //creating products objects using C.F :
-for (var i=0; i < productUrl.length; i++){
+for (var i = 0; i < productUrl.length; i++) {
   new Product(productUrl[i]);
 }
 //to display random images to useer at start :
 randomImage();
 numberRounds++;
+rounds.textContent = ('Round number :' + numberRounds);
 //creating click event - activating click on images :
 imagesSection.addEventListener('click', clicks);
-function clicks(e){
+function clicks(e) {
   //to generate random images on click + store # of clicks
-  if (e.target.id === 'left-side-img' || e.target.id === 'center-img' || e.target.id === 'right-side-img'){
+  if (e.target.id === 'left-side-img') {
+    leftImageRandom.numberClicks++;
+    totalClicks++,
     randomImage();
-    numberClicks++;
     numberRounds++;
   }
-  if (numberClicks === 27) {
+
+  if (e.target.id === 'center-img') {
+    centerImageRandom.numberClicks++;
+    totalClicks++;
+    randomImage();
+    numberRounds++;
+  }
+  if (e.target.id === 'right-side-img') {
+    rightImageRandom.numberClicks++;
+    totalClicks++;
+    randomImage();
+    numberRounds++;
+  }
+  rounds.textContent = ('Round number :' + numberRounds);
+  if (totalClicks === 25) {
     imagesSection.removeEventListener('click', clicks);
     leftSideImage.remove();
     centerImage.remove();
     rightSideImage.remove();
-    console.log('finished');
+    rounds.textContent = ('');
+    var finalReport = document.getElementById('finalReport');
+    finalReport.textContent = 'Thank you for taking the time to do the voting, here is your voting results :';
+    var report = document.getElementById('report');
+    for (var j =0; j< products.length; j++){
+      var reportList = document.createElement('li');
+      reportList.textContent = `${products[j].imageName} had ${products[j].numberClicks} votes and was shown ${products[j].numberViews} times`;
+      report.appendChild(reportList);
+    }
   }
 }
-console.log(roundImagesShown);
+
 

@@ -8,16 +8,13 @@
    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header>
+        <h1>We've got a list of products for you to vote for!</h1>
+        <p>each time choose one favourite from the three images , you have 25 rounds</p>
+    </header>
     <main>
-        <section>
-            <ul id="clicks">
-              <p>Choose one photo at each time, you have 25 rounds to complete the voting :</p>
-            </ul>
-          </section>
           <section id="all-products">
-            <h1>We've got a list of products for you!</h1>
-            <p>each time choose one from the three images , you have twenty-five rounds</p>
-      
+            <p id="rounds"></p>
             <div id="left-side"> 
               <img id="left-side-img" src="" alt="">
             </div>
@@ -27,6 +24,12 @@
             <div id="right-side">
               <img id="right-side-img" src="" alt="">
             </div>
+          </section>
+          <section>
+            <p id="finalReport"></p>
+            <ul id="report">
+              
+            </ul>
           </section>
     </main>
     <script src="js/app.js"></script>

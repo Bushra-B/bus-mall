@@ -1,5 +1,45 @@
-div {
-    display: inline-block;
+body {
+    line-height: 1;
+    background-color: lavender;
+}
+header{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    font-size: x-large;
+    background-color: blueviolet;
+    color: bisque;
+    width: 760px;
+}
+main{
+    margin-top: 100px;
+}
+section {
+    margin-left: 500px;}
+p#rounds {
+    padding-bottom: 50px;
+    margin-left: 350px;
+}
+div{
+    display: inline;
     line-height: 2px;
-    margin: 5px;
+    margin: 50px;}
+img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+#finalReport {
+    padding: 15px;
+    font-size: larger;
+}
+ul {
+    list-style: disc;
+}
+li {
+    padding: 20px;
+    font-size: larger;
 }
