@@ -35,6 +35,7 @@ var leftImageRandom, centerImageRandom, rightImageRandom;
 var totalClicks = 0;
 var rounds = document.getElementById('rounds');
 var numberRounds =0;
+var imagesPerRound = [];
 //constructor function : to create products objects
 function Product(url) {
   this.imageUrl = `assets/${url}`;
@@ -49,13 +50,17 @@ function randomImage() {
   centerImageRandom = products[randomNumber(0, products.length - 1)];
   rightImageRandom = products[randomNumber(0, products.length - 1)];
   //to generate images randomly from products objects
-  //   console.log(centerImageRandom);
+  //    console.log(centerImageRandom);
   //to validate the uniqueness of the 3 random images
-  while (leftImageRandom === centerImageRandom || leftImageRandom === rightImageRandom || centerImageRandom === rightImageRandom) {
+  while (leftImageRandom === centerImageRandom || leftImageRandom === rightImageRandom || centerImageRandom === rightImageRandom || imagesPerRound.includes(leftImageRandom) || imagesPerRound.includes(centerImageRandom) || imagesPerRound.includes(rightImageRandom)) {
     leftImageRandom = products[randomNumber(0, products.length - 1)];
     centerImageRandom = products[randomNumber(0, products.length - 1)];
     rightImageRandom = products[randomNumber(0, products.length - 1)];
   }
+  imagesPerRound = [];
+  imagesPerRound.push(leftImageRandom);
+  imagesPerRound.push(centerImageRandom);
+  imagesPerRound.push(rightImageRandom);
   //to display the 3 random images to the user
   leftSideImage.setAttribute('src', leftImageRandom.imageUrl);
   leftSideImage.setAttribute('alt', leftImageRandom.imageName);
@@ -67,7 +72,6 @@ function randomImage() {
   rightSideImage.setAttribute('alt', rightImageRandom.imageName);
   rightImageRandom.numberViews++;
 }
-
 //creating products objects using C.F :
 for (var i = 0; i < productUrl.length; i++) {
   new Product(productUrl[i]);
@@ -139,6 +143,9 @@ function renderChart(){
       datasets: [{
         label: '# of Votes',
         data: productsClicks,
+        backgroundColor: 'rgba(138, 43, 226, 0.2)',
+        borderColor: 'rgba(138, 43, 226, 1)',
+        borderWidth: 1
       }, {
         label: '# of Views',
         data: productsViews,
