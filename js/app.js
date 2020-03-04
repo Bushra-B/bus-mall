@@ -110,6 +110,13 @@ function clicks(e) {
     centerImage.remove();
     rightSideImage.remove();
     rounds.textContent = ('');
+    //saving to local storage :
+    //to update report results to local storage :
+    var results = JSON.stringify(products);
+    localStorage.setItem('voteResults', results);
+    //to get report results from local storage :
+    var voteResults = localStorage.getItem('voteResults');
+    products = JSON.parse(voteResults);
     var finalReport = document.getElementById('finalReport');
     finalReport.textContent = 'Thank you for taking the time to do the voting, here is your voting results :';
     var report = document.getElementById('report');
