@@ -1,1 +1,3 @@
-# bus-mall
+# Bus-Mall
+**BusMall is a catalog of assorted products meant to be placed on local busses providing a mental escape while commuting through traffic.**  
+**In this step of the project, we are doing a market analysis on proposed products to test their potential customer interest… before actually putting them into the catalog and getting the manufacturing wheels in motion. This app displays potential products to individuals in focus groups (three products at a time, side-by-side-by-side) to let the viewer chooses which product, of the three displayed images, that he would be most likely to purchase, and then store, calculate, and visually display the resulting data.**
